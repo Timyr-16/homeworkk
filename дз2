@@ -1,0 +1,41 @@
+
+class Tvaryna:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+    def info(self):
+        print("Ім'я:", self.name)
+        print("Вік:", self.age)
+
+
+class Sobaka(Tvaryna):
+    def __init__(self, name, age, poroda):
+        super().__init__(name, age)
+        self.poroda = poroda
+
+    def sound(self):
+        print("Гав-гав!")
+
+
+class Kit(Tvaryna):
+    def __init__(self, name, age):
+        super().__init__(name, age)
+
+    def sound(self):
+        print("Няв-няв!")
+
+
+sobaka = Sobaka("Рекс", 3, "Вівчарка")
+kit = Kit("Мурчик", 2)
+
+print("Собака:")
+sobaka.info()
+print("Порода:", sobaka.poroda)
+sobaka.sound()
+
+print()
+
+print("Кіт:")
+kit.info()
+kit.sound()
