@@ -1,0 +1,43 @@
+
+import colorama
+import inspect
+
+colorama.init(autoreset=True)
+
+print("Название библиотеки:", colorama.__name__)
+print("Описание:", colorama.__doc__)
+print("Версия:", colorama.__version__)
+
+print("\n--- Атрибуты библиотеки ---")
+
+for item in dir(colorama):
+    if not item.startswith("_"):
+        print(item)
+
+print("\n--- Информация о Fore ---")
+
+print("Атрибуты Fore:")
+for item in dir(colorama.Fore):
+    if not item.startswith("_"):
+        print(item)
+
+print("\n--- Информация о Back ---")
+
+for item in dir(colorama.Back):
+    if not item.startswith("_"):
+        print(item)
+
+print("\n--- Методы библиотеки ---")
+
+for name, method in inspect.getmembers(colorama, inspect.isfunction):
+    print(name, "-", method.__doc__)
+
+print("\n--- Демонстрация Colorama ---")
+
+print(colorama.Fore.RED + "Красный текст")
+print(colorama.Fore.GREEN + "Зелёный текст")
+print(colorama.Fore.BLUE + "Синий текст")
+print(colorama.Back.YELLOW + "Текст на жёлтом фоне")
+print(colorama.Style.BRIGHT + "Яркий текст")
+
+colorama.deinit()
