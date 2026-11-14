@@ -1,0 +1,64 @@
+import requests
+import csv
+from bs4 import BeautifulSoup
+from urllib.parse import urljoin
+
+url = "https://books.toscrape.com/index.html"
+
+books = []
+
+while url:
+    response = requests.get(url)
+    response.encoding = "utf-8"
+
+    soup = BeautifulSoup(response.text, "html.parser")
+
+    all_books = soup.find_all("article", class_="product_pod")
+
+    for book in all_books:
+        title = book.find("h3").find("a")["title"]
+
+        price = book.find("p", class_="price_color").text
+
+        rating = book.find("p", class_="star-rating")["class"][1]
+
+        availability = book.find(
+            "p", class_="availability"
+        ).text.strip()
+
+        link = urljoin(
+            url,
+            book.find("h3").find("a")["href"]
+        )
+
+        books.append([
+            title,
+            price,
+            rating,
+            availability,
+            link
+        ])
+
+    next_page = soup.find("li", class_="next")
+
+    if next_page:
+        next_link = next_page.find("a")["href"]
+        url = urljoin(url, next_link)
+    else:
+        url = None
+
+with open("books.csv", "w", newline="", encoding="utf-8-sig") as file:
+    writer = csv.writer(file)
+
+    writer.writerow([
+        "Title",
+        "Price",
+        "Rating",
+        "Availability",
+        "Link"
+    ])
+
+    writer.writerows(books)
+
+print("Усього знайдено книг:", len(books))
+print("Дані збережено у файлі books.csv")
