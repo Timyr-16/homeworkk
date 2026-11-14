@@ -1,0 +1,12 @@
+points = int(input("Введіть кількість балів: "))
+
+if points >= 0 and points <= 49:
+    print("Незадовільно")
+elif points <= 69 and points >= 50:
+    print("Задовільно")
+elif points <= 89 and points >= 70:
+    print("Добре")
+elif points <= 100 and points >= 90:
+    print("Відмінно")
+else:
+    print("Неправильна кількість балів")
